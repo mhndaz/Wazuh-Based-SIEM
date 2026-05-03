@@ -9,7 +9,7 @@ This project focuses on building a SIEM solution using Wazuh, an open-source sec
 ### Skills Learned
 -tochange
 - Advanced understanding of SIEM concepts and practical application.
-- Proficiency in analyzing and interpreting network logs.
+- Proficiency in analyzing and interpreting network logs. 
 - Ability to generate and recognize attack signatures and patterns.
 - Enhanced knowledge of network protocols and security vulnerabilities.
 - Development of critical thinking and problem-solving skills in cybersecurity.
