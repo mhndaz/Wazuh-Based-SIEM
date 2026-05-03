@@ -4,7 +4,7 @@
 To design and implement a Wazuh-based SIEM system for centralized monitoring, real-time threat detection, analysis, and improved incident response capabilities
 
 ### Skills Learned
-<tochange>
+-tochange
 - Advanced understanding of SIEM concepts and practical application.
 - Proficiency in analyzing and interpreting network logs.
 - Ability to generate and recognize attack signatures and patterns.
