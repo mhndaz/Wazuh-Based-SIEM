@@ -13,7 +13,7 @@ To design and implement a Wazuh-based SIEM system for centralized monitoring, re
 
 ### Tools Used
 [Bullet Points - Remove this afterwards]
-
+-tochange
 - Security Information and Event Management (SIEM) system for log ingestion and analysis.
 - Network analysis tools (such as Wireshark) for capturing and examining network traffic.
 - Telemetry generation tools to create realistic network traffic and attack scenarios.
