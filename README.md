@@ -30,4 +30,11 @@ I’m going to set up all my virtual machines using VMware. For this project, I 
 
 <img width="1000" height="507" alt="DYGRM" src="https://github.com/user-attachments/assets/413b1d43-94c7-434b-bcaa-e9c2f0957cc6" />
 
+one of the first we need to install # sysmon on windows 10, when you hook Sysmon into Wazuh, you can detect a lot of high-value activity that standard Windows logs often miss. The combo is popular because Sysmon gives deep visibility, and Wazuh handles correlation, alerting, and dashboards.
+
+after installing sysmon on the endpoing we can see here a list of logs that is showing on the wazuh server
+
+<img width="1223" height="797" alt="sysmon" src="https://github.com/user-attachments/assets/6bb443de-ec0f-4d13-8afe-9fd177bb0922" />
+
+
 
