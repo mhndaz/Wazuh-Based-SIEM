@@ -36,5 +36,20 @@ after installing sysmon on the endpoing we can see here a list of logs that is s
 
 <img width="1223" height="797" alt="sysmon" src="https://github.com/user-attachments/assets/6bb443de-ec0f-4d13-8afe-9fd177bb0922" />
 
+Here, we have a single alert classified as critical.
+
+<img width="903" height="736" alt="single-Sysmon Alert" src="https://github.com/user-attachments/assets/7ba15c29-d8b0-4185-92a6-cbb00ba40338" />
+
+# And here is the explanation of the alert:
+
+“A legit Windows binary dropped another executable in a sketchy location”
+
+This is the core idea behind Living-Off-the-Land (LOLBins):
+
+Attackers use trusted Windows binaries (like cleanmgr.exe)
+To write or execute payloads
+In locations that blend in (like AppData\Temp)
+
+
 
 
