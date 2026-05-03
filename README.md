@@ -76,7 +76,7 @@ Together in this context:
 ❗ unexpected parent-child relationship
 ❗ unexpected file location
 
-# That mismatch is the detection signal
+**That mismatch is the detection signal**
 
 
 
