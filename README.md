@@ -22,12 +22,10 @@ This project focuses on building a SIEM solution using Wazuh, an open-source sec
 - Telemetry generation tools to create realistic network traffic and attack scenarios.
 
 ## Steps
-drag & drop screenshots here or use imgur and reference them using imgsrc
 
-Every screenshot should have some text explaining what the screenshot is about.
-
-Example below.
-
+I’m going to set up all my virtual machines using VMware. For this project, I will use a Windows 10 machine to install the Wazuh endpoint agent, a Windows Server 2016 machine to host the domain controller, an OPNsense firewall, and a Kali Linux machine to host the Wazuh server. The following network diagram demonstrates how these machines communicate with each other.
 *Ref 1: Network Diagram*
 
 <img width="782" height="507" alt="DYGRM" src="https://github.com/user-attachments/assets/413b1d43-94c7-434b-bcaa-e9c2f0957cc6" />
+
+
