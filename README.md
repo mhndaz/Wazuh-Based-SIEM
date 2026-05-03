@@ -50,6 +50,33 @@ Attackers use trusted Windows binaries (like cleanmgr.exe)
 To write or execute payloads
 In locations that blend in (like AppData\Temp)
 
+## Mapping directly to YOUR event
+
+From your log:
+
+# Legit binary
+Image: C:\Windows\system32\cleanmgr.exe
+Signed Microsoft binary
+Normally safe
+# Suspicious action
+TargetFilename:
+C:\Users\User2\AppData\Local\Temp\...\DismHost.exe
+Dropped executable
+In user Temp directory
+Not its usual system path
+# Why this combination matters
+
+On its own:
+
+cleanmgr.exe → fine
+DismHost.exe → fine
+
+Together in this context:
+
+❗ unexpected parent-child relationship
+❗ unexpected file location
+
+# That mismatch is the detection signal
 
 
 
