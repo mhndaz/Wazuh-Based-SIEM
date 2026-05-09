@@ -1,107 +1,136 @@
-# Wazuh-Based SIEM Project
+Wazuh-Based SIEM Project
+Overview
 
-## Objective
-A Security Information and Event Management (SIEM) system is a critical component of modern cybersecurity infrastructure. It collects, analyzes, and correlates security data from multiple sources to detect threats and respond to incidents in real time.
+Security Information and Event Management (SIEM) platforms help organizations collect, monitor, and analyze logs from multiple systems in one place. They improve visibility across the network and help security teams detect suspicious activity faster.
 
-This project focuses on building a SIEM solution using Wazuh, an open-source security platform that provides unified threat detection, integrity monitoring, incident response, and compliance management.
+In this project, I built a SIEM lab using Wazuh, an open-source security monitoring platform. The lab focuses on centralized logging, threat detection, file integrity monitoring, and alert analysis within a virtualized environment.
 
-To design and implement a Wazuh-based SIEM system for centralized monitoring, real-time threat detection, analysis, and improved incident response capabilities
-### Skills Learned
--tochange
-- Advanced understanding of SIEM concepts and practical application.
-- Proficiency in analyzing and interpreting network logs. 
-- Ability to generate and recognize attack signatures and patterns.
-- Enhanced knowledge of network protocols and security vulnerabilities.
-- Development of critical thinking and problem-solving skills in cybersecurity.
+Project Goals
+Build a centralized SIEM environment using Wazuh
+Monitor endpoint activity in real time
+Detect suspicious behavior using Sysmon logs
+Configure file integrity monitoring (FIM)
+Improve visibility into system and network events
+Skills Learned
+SIEM deployment and configuration
+Log analysis and event correlation
+Windows event monitoring with Sysmon
+File Integrity Monitoring (FIM)
+Threat detection and alert investigation
+Windows and Linux system administration
+Network segmentation and virtual lab setup
+Tools & Technologies
+Wazuh
+Sysmon
+VMware Workstation
+Windows 10
+Windows Server 2016
+Kali Linux
+OPNsense Firewall
+Wireshark
+Lab Environment
 
-### Tools Used
-[Bullet Points - Remove this afterwards]
--tochange
-- Security Information and Event Management (SIEM) system for log ingestion and analysis.
-- Network analysis tools (such as Wireshark) for capturing and examining network traffic.
-- Telemetry generation tools to create realistic network traffic and attack scenarios.
+The lab environment was built in VMware using multiple virtual machines:
 
-## Steps
+Windows 10 → Wazuh endpoint agent
+Windows Server 2016 → Domain Controller & shared network storage
+Kali Linux → Wazuh Manager/Server
+OPNsense → Firewall and network segmentation
 
-I’m going to set up all my virtual machines using VMware. For this project, I will use a Windows 10 machine to install the Wazuh endpoint agent, a Windows Server 2016 machine to host the domain controller, an OPNsense firewall, and a Kali Linux machine to host the Wazuh server. The following network diagram demonstrates how these machines communicate with each other.
+The following diagram shows how the systems communicate within the lab environment.
 
-*Ref 1: Network Diagram*
-
+Ref 1: Network Diagram
 
 <img width="1000" height="507" alt="DYGRM" src="https://github.com/user-attachments/assets/413b1d43-94c7-434b-bcaa-e9c2f0957cc6" />
+Installing Sysmon on Windows 10
 
-one of the first thing we need to install # sysmon on windows 10, when you hook Sysmon into Wazuh, you can detect a lot of high-value activity that standard Windows logs often miss. The combo is popular because Sysmon gives deep visibility, and Wazuh handles correlation, alerting, and dashboards.
+One of the first steps was installing Sysmon on the Windows 10 endpoint.
 
-after installing sysmon on the endpoing we can see here a list of logs that is showing on the wazuh server
+Sysmon provides detailed Windows event logging that goes far beyond default Windows logs. When integrated with Wazuh, it allows the SIEM to detect suspicious activity such as:
+
+Process creation
+File creation
+Registry modifications
+Network connections
+Privilege escalation attempts
+
+After installing Sysmon and connecting the endpoint agent to Wazuh, the logs became visible in the Wazuh dashboard.
 
 <img width="1223" height="797" alt="sysmon" src="https://github.com/user-attachments/assets/6bb443de-ec0f-4d13-8afe-9fd177bb0922" />
+Suspicious Sysmon Alert Detection
 
-Here, we have a single alert classified as critical.
+Wazuh generated a high-severity alert based on Sysmon activity.
 
 <img width="903" height="736" alt="single-Sysmon Alert" src="https://github.com/user-attachments/assets/7ba15c29-d8b0-4185-92a6-cbb00ba40338" />
+Alert Analysis
 
-# And here is the explanation of the alert:
+The alert showed that a legitimate Windows binary, cleanmgr.exe, created another executable inside a temporary user directory.
 
-“A legit Windows binary dropped another executable in a sketchy location”
-
-This is the core idea behind Living-Off-the-Land (LOLBins):
-
-Attackers use trusted Windows binaries (like cleanmgr.exe)
-To write or execute payloads
-In locations that blend in (like AppData\Temp)
-
-## Mapping directly to YOUR event
-
-From your log:
-
-# Legit binary
-Image: C:\Windows\system32\cleanmgr.exe
-Signed Microsoft binary
-Normally safe
-# Suspicious action
-TargetFilename:
+Legitimate Process
+C:\Windows\System32\cleanmgr.exe
+Suspicious File Creation
 C:\Users\User2\AppData\Local\Temp\...\DismHost.exe
-Dropped executable
-In user Temp directory
-it's not its usual system path
 
+This behavior is commonly associated with Living-Off-the-Land Binary (LOLBin) techniques, where attackers abuse trusted Microsoft binaries to execute or drop malicious payloads while avoiding detection.
 
-**That mismatch is the detection signal**
+The main detection indicator is the mismatch between:
 
-### Conclusion
+A trusted Microsoft process
+An unusual executable being written into a temporary directory
 
+This demonstrates how Sysmon and Wazuh can work together to identify suspicious activity that may otherwise appear legitimate.
 
-This alert indicates a potential Living-Off-the-Land Binary (LOLBin) abuse technique where a trusted Microsoft Windows executable (cleanmgr.exe) appears to have created or dropped another executable (DismHost.exe) into a suspicious temporary user directory.
+File Integrity Monitoring (FIM)
 
-## Monitor a Specific location:
+Another feature configured in this project was File Integrity Monitoring (FIM).
 
-we can set up out wazuh agent to minitor a spesific location as well by modifying OSSEC.CONF  under C:\Program Files (x86)\ossec-agent.
+The goal was to monitor a shared network folder for:
 
-For out lab here we are going to monitor the network drive, already setup the sahred folder on the server and added that location on windows 10 so now we can share files all over our network.
+File creation
+File modification
+File deletion
+File renaming
+
+A shared folder was created on the Windows Server and mapped to the Windows 10 machine.
 
 <img width="625" height="247" alt="Network Share" src="https://github.com/user-attachments/assets/d2578598-1663-42ec-8fb8-d23a99a91280" />
+Configuring Wazuh Agent Monitoring
 
-first we need to enable Audit File System from the Local group Policy. and auditing from the shared folder on the server
+To monitor the shared directory, the ossec.conf file was modified on the Windows endpoint located at:
 
-# Edit the OSSEC.CONF file:
- we need to add the file location then restart the WAZUH service 
+C:\Program Files (x86)\ossec-agent\
 
- <img width="1095" height="357" alt="FIM OSSEC file " src="https://github.com/user-attachments/assets/867b7f9a-4962-42a5-9065-a744adbc3a25" />
+Before enabling monitoring:
 
- 
- Now if we go and crete a new file or modified it, add data to it or even delete it, you will be  abale to see the logs from the WAZUH manager
+Audit File System policies were enabled in Local Group Policy
+Auditing was enabled on the shared folder itself
+The monitored path was added to ossec.conf
+The Wazuh agent service was restarted
+<img width="1095" height="357" alt="FIM OSSEC file " src="https://github.com/user-attachments/assets/867b7f9a-4962-42a5-9065-a744adbc3a25" />
+File Change Detection
 
+Once monitoring was enabled, any file activity inside the shared folder generated alerts in Wazuh.
 
+This included:
 
- <img width="1677" height="171" alt="rename and modifier the file" src="https://github.com/user-attachments/assets/3ec536ac-803b-4815-9a48-805484ab4217" />
+Creating files
+Editing files
+Renaming files
+Deleting files
+<img width="1677" height="171" alt="rename and modifier the file" src="https://github.com/user-attachments/assets/3ec536ac-803b-4815-9a48-805484ab4217" />
 
-we have here a single detailed alert, you can even see who modified it 
-
+Wazuh provided detailed event information, including the user responsible for the change.
 
 <img width="912" height="772" alt="modified from W10 By the administrator " src="https://github.com/user-attachments/assets/87a5750c-93a2-4d43-9690-4bc98f410b32" />
+Conclusion
 
+This project demonstrates how Wazuh can be used as a powerful open-source SIEM solution for centralized monitoring and threat detection.
 
+By integrating Sysmon and configuring File Integrity Monitoring, the environment was able to:
 
+Detect suspicious endpoint behavior
+Monitor critical file activity
+Generate real-time security alerts
+Improve visibility across systems
 
-
-
+The lab provided hands-on experience with SIEM operations, log analysis, and practical threat detection techniques commonly used in security operations environments.
