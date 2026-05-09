@@ -1,11 +1,11 @@
 # Wazuh-Based SIEM Project
 
 ## Objective
-To design and implement a Wazuh-based SIEM system for centralized monitoring, real-time threat detection, analysis, and improved incident response capabilities
-
 A Security Information and Event Management (SIEM) system is a critical component of modern cybersecurity infrastructure. It collects, analyzes, and correlates security data from multiple sources to detect threats and respond to incidents in real time.
 
 This project focuses on building a SIEM solution using Wazuh, an open-source security platform that provides unified threat detection, integrity monitoring, incident response, and compliance management.
+
+To design and implement a Wazuh-based SIEM system for centralized monitoring, real-time threat detection, analysis, and improved incident response capabilities
 ### Skills Learned
 -tochange
 - Advanced understanding of SIEM concepts and practical application.
