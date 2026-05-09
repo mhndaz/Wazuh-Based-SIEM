@@ -77,7 +77,7 @@ This alert indicates a potential Living-Off-the-Land Binary (LOLBin) abuse techn
 
 we can set up out wazuh agent to minitor a spesific location as well by adding a rule under C:\Program Files (x86)\ossec-agent by setting-up the OSSEC.CONF file
 
-for out lab here we are going to monitor the network drive
+-For out lab here we are going to monitor the network drive
 
 <img width="625" height="247" alt="Network Share" src="https://github.com/user-attachments/assets/d2578598-1663-42ec-8fb8-d23a99a91280" />
 
