@@ -39,7 +39,6 @@ In this project, I built a SIEM lab using **Wazuh**, an open-source security mon
 - Windows Server 2016
 - Kali Linux
 - OPNsense Firewall
-- Wireshark------------------///
 
 ---
 
