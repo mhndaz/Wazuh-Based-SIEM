@@ -89,7 +89,18 @@ first we need to enable Audit File System from the Local group Policy. and audit
  <img width="1095" height="357" alt="FIM OSSEC file " src="https://github.com/user-attachments/assets/867b7f9a-4962-42a5-9065-a744adbc3a25" />
 
  
- 
+ Now if we go and crete a new file or modified it, add data to it or even delete it, you will be  abale to see the logs from the WAZUH manager
+
+
+
+ <img width="1677" height="171" alt="rename and modifier the file" src="https://github.com/user-attachments/assets/3ec536ac-803b-4815-9a48-805484ab4217" />
+
+we have here a single detailed alert, you can even see who modified it 
+
+
+<img width="912" height="772" alt="modified from W10 By the administrator " src="https://github.com/user-attachments/assets/87a5750c-93a2-4d43-9690-4bc98f410b32" />
+
+
 
 
 
