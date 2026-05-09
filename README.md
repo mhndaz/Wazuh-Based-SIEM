@@ -85,8 +85,11 @@ first we need to enable Audit File System from the Local group Policy. and audit
 
 # Edit the OSSEC.CONF file:
  we need to add the file location then restart the WAZUH service 
+
+ <img width="1095" height="357" alt="FIM OSSEC file " src="https://github.com/user-attachments/assets/867b7f9a-4962-42a5-9065-a744adbc3a25" />
+
  
- <directories check_all="yes" realtime="yes" whodata="yes">C:\Shared Drive MHNDAZ</directories>
+ 
 
 
 
