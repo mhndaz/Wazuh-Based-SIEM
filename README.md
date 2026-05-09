@@ -58,7 +58,8 @@ The following diagram shows how the systems communicate within the lab environme
 
 ## Network Diagram
 
-<img width="1000" height="507" alt="DYGRM" src="https://github.com/user-attachments/assets/413b1d43-94c7-434b-bcaa-e9c2f0957cc6" />
+<img width="736" height="523" alt="DYGRM" src="https://github.com/user-attachments/assets/34306cf3-d109-4822-9666-e49b7a0bc166" />
+
 
 ---
 
