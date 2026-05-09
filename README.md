@@ -78,5 +78,10 @@ Together in this context:
 
 **That mismatch is the detection signal**
 
+### Conclusion
+
+
+This alert indicates a potential Living-Off-the-Land Binary (LOLBin) abuse technique where a trusted Microsoft Windows executable (cleanmgr.exe) appears to have created or dropped another executable (DismHost.exe) into a suspicious temporary user directory.
+
 
 
