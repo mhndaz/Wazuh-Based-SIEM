@@ -167,6 +167,8 @@ Wazuh provided detailed event information, including the user responsible for th
 
 <img width="912" height="772" alt="modified from W10 By the administrator " src="https://github.com/user-attachments/assets/87a5750c-93a2-4d43-9690-4bc98f410b32" />
 
+<img width="866" height="791" alt="FIM Alert Detail" src="https://github.com/user-attachments/assets/55708448-6d1b-483a-95b7-09ff5a403f90" />
+
 ---
 
 # Conclusion
