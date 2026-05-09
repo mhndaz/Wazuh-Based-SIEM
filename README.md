@@ -63,18 +63,8 @@ TargetFilename:
 C:\Users\User2\AppData\Local\Temp\...\DismHost.exe
 Dropped executable
 In user Temp directory
-Not its usual system path
-# Why this combination matters
+it's not its usual system path
 
-On its own:
-
-cleanmgr.exe → fine
-DismHost.exe → fine
-
-Together in this context:
-
-❗ unexpected parent-child relationship
-❗ unexpected file location
 
 **That mismatch is the detection signal**
 
