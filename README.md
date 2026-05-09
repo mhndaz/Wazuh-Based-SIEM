@@ -81,6 +81,13 @@ For out lab here we are going to monitor the network drive, already setup the sa
 
 <img width="625" height="247" alt="Network Share" src="https://github.com/user-attachments/assets/d2578598-1663-42ec-8fb8-d23a99a91280" />
 
+first we need to enable Audit File System from the Local group Policy. and auditing from the shared folder on the server
+
+# Edit the OSSEC.CONF file:
+ we need to add the file location then restart the WAZUH service 
+ 
+ <directories check_all="yes" realtime="yes" whodata="yes">C:\Shared Drive MHNDAZ</directories>
+
 
 
 
