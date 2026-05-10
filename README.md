@@ -186,13 +186,3 @@ This lab provided hands-on experience with SIEM operations, log analysis, endpoi
 
 ---
 
-# Future Improvements
-
-- Add Suricata IDS integration
-- Configure Active Response rules
-- Simulate brute-force attacks
-- Create custom Wazuh detection rules
-- Integrate MITRE ATT&CK mappings
-- Add Linux endpoint monitoring
-- Configure email alerting
-- Add threat intelligence feeds
