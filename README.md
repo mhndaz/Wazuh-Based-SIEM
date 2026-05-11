@@ -203,29 +203,12 @@ The objective was to:
 
 This helps simulate real-world attack activity commonly seen in enterprise environments.
 
----
-
-# Lab Setup
-
-| Machine | Role |
-|---|---|
-| Windows Server 2016 | Domain Controller |
-| Windows 10 | Target Endpoint |
-| Kali Linux | Attacker Machine |
-| Wazuh Server | SIEM Monitoring |
 
 ---
 
 # Step 1 — Enable Failed Login Auditing
 
 On the Windows target machine:
-
-## Open Local Security Policy
-
-```text
-secpol.msc
-```
-
 Navigate to:
 
 ```text
@@ -241,18 +224,7 @@ Apply the changes.
 
 ---
 
-# Step 2 — Verify Wazuh Agent Connectivity
-
-Ensure:
-- The Wazuh agent is installed
-- The endpoint is connected to the Wazuh manager
-- Windows Security logs are being collected
-
-You should already see authentication events in the dashboard.
-
----
-
-# Step 3 — Install CrackMapExec on Kali Linux
+# Step 2 — Install CrackMapExec on Kali Linux
 
 Update the system:
 
@@ -268,50 +240,35 @@ sudo apt install crackmapexec -y
 
 ---
 
-# Step 4 — Simulate SMB Brute Force Attack
+# Step 3 — Simulate SMB Brute Force Attack
 
 Run a brute-force attempt against the Windows machine.
 
 ## Example Command
 
-```bash
-crackmapexec smb <TARGET-IP> -u administrator -p passwords.txt
-```
-
-Example:
 
 ```bash
-crackmapexec smb 192.168.1.10 -u administrator -p passwords.txt
+crackmapexec smb 10.0.0.10 -u administrator -p passwords.txt
 ```
+
+<img width="981" height="193" alt="Attack simulation" src="https://github.com/user-attachments/assets/bd16206f-5c25-41c7-80ce-d8bb37449f07" />
+
 
 This generates:
 - Multiple failed login attempts
 - Windows authentication logs
 - Security events collected by Wazuh
 
----
-
-# Alternative Method — Hydra
-
-Hydra can also be used for brute-force simulations.
-
-## Install Hydra
-
-```bash
-sudo apt install hydra -y
-```
-
-## Run SMB Brute Force
-
-```bash
-hydra -l administrator -P passwords.txt smb://192.168.1.10
-```
 
 ---
 
-# Step 5 — Monitor Wazuh Alerts
+# Step 4 — Monitor Wazuh Alerts
 
 Open the Wazuh dashboard and review generated alerts.
+
+<img width="1881" height="571" alt="Logs After Brute Force" src="https://github.com/user-attachments/assets/cdb66ba1-f0c5-40e1-a4d3-139a65e1b946" />
+
+
 
 Typical events include:
 - Failed logon attempts
@@ -359,9 +316,12 @@ Inside Wazuh, you can investigate:
 - Time of attack
 - Severity level
 
-This helps simulate SOC-style investigations.
+This one is single log.
 
 ---
+<img width="650" height="786" alt="failed logging detailed" src="https://github.com/user-attachments/assets/8b81f998-d997-425b-89fd-5d75de41167e" />
+
+
 
 # Optional — Trigger Account Lockout
 
