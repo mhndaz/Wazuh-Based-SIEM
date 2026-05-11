@@ -186,3 +186,254 @@ This lab provided hands-on experience with SIEM operations, log analysis, endpoi
 
 ---
 
+
+
+
+# Simulating Brute-Force Attacks in the Wazuh SIEM Lab
+
+# Overview
+
+This section demonstrates how brute-force attacks were simulated inside the lab environment and detected using Wazuh.
+
+The objective was to:
+- Generate failed login attempts
+- Trigger security alerts
+- Monitor authentication logs
+- Analyze attack behavior inside the SIEM dashboard
+
+This helps simulate real-world attack activity commonly seen in enterprise environments.
+
+---
+
+# Lab Setup
+
+| Machine | Role |
+|---|---|
+| Windows Server 2016 | Domain Controller |
+| Windows 10 | Target Endpoint |
+| Kali Linux | Attacker Machine |
+| Wazuh Server | SIEM Monitoring |
+
+---
+
+# Step 1 — Enable Failed Login Auditing
+
+On the Windows target machine:
+
+## Open Local Security Policy
+
+```text
+secpol.msc
+```
+
+Navigate to:
+
+```text
+Security Settings → Advanced Audit Policy Configuration → Logon/Logoff
+```
+
+Enable:
+
+- Audit Logon → Failure
+- Audit Credential Validation → Failure
+
+Apply the changes.
+
+---
+
+# Step 2 — Verify Wazuh Agent Connectivity
+
+Ensure:
+- The Wazuh agent is installed
+- The endpoint is connected to the Wazuh manager
+- Windows Security logs are being collected
+
+You should already see authentication events in the dashboard.
+
+---
+
+# Step 3 — Install CrackMapExec on Kali Linux
+
+Update the system:
+
+```bash
+sudo apt update
+```
+
+Install CrackMapExec:
+
+```bash
+sudo apt install crackmapexec -y
+```
+
+---
+
+# Step 4 — Simulate SMB Brute Force Attack
+
+Run a brute-force attempt against the Windows machine.
+
+## Example Command
+
+```bash
+crackmapexec smb <TARGET-IP> -u administrator -p passwords.txt
+```
+
+Example:
+
+```bash
+crackmapexec smb 192.168.1.10 -u administrator -p passwords.txt
+```
+
+This generates:
+- Multiple failed login attempts
+- Windows authentication logs
+- Security events collected by Wazuh
+
+---
+
+# Alternative Method — Hydra
+
+Hydra can also be used for brute-force simulations.
+
+## Install Hydra
+
+```bash
+sudo apt install hydra -y
+```
+
+## Run SMB Brute Force
+
+```bash
+hydra -l administrator -P passwords.txt smb://192.168.1.10
+```
+
+---
+
+# Step 5 — Monitor Wazuh Alerts
+
+Open the Wazuh dashboard and review generated alerts.
+
+Typical events include:
+- Failed logon attempts
+- Multiple authentication failures
+- Suspicious login behavior
+- SMB authentication activity
+
+---
+
+# Common Windows Event IDs
+
+| Event ID | Description |
+|---|---|
+| 4625 | Failed logon attempt |
+| 4624 | Successful logon |
+| 4776 | Credential validation |
+| 4740 | Account lockout |
+
+---
+
+# Example Detection
+
+Wazuh may generate alerts similar to:
+
+```text
+Multiple Windows login failures detected
+```
+
+Or:
+
+```text
+Possible brute-force attack detected
+```
+
+---
+
+# Investigating the Attack
+
+Inside Wazuh, you can investigate:
+
+- Source IP address
+- Username targeted
+- Number of failed attempts
+- Authentication method
+- Time of attack
+- Severity level
+
+This helps simulate SOC-style investigations.
+
+---
+
+# Optional — Trigger Account Lockout
+
+To make the simulation more realistic:
+
+## Configure Account Lockout Policy
+
+Open:
+
+```text
+gpmc.msc
+```
+
+Navigate to:
+
+```text
+Computer Configuration → Policies → Windows Settings → Security Settings → Account Policies
+```
+
+Set:
+- Account lockout threshold
+- Lockout duration
+- Reset counter timing
+
+After enough failed attempts:
+- The account locks automatically
+- Wazuh generates additional alerts
+
+---
+
+# Using Wireshark During the Attack
+
+Wireshark can capture:
+- SMB traffic
+- Authentication attempts
+- Failed sessions
+
+## Useful Filter
+
+```bash
+smb || tcp.port == 445
+```
+
+This helps correlate:
+- Network traffic
+- Authentication logs
+- Wazuh alerts
+
+---
+
+# Detection Improvements
+
+You can improve detection by:
+- Creating custom Wazuh rules
+- Adding Suricata IDS
+- Blocking IPs automatically with Active Response
+- Alerting on excessive failed logins
+
+---
+
+# Example Resume/Project Points
+
+- Simulated SMB brute-force attacks using CrackMapExec and Hydra
+- Monitored Windows authentication events with Wazuh
+- Investigated failed login attempts using SIEM dashboards
+- Correlated packet captures with endpoint security logs
+- Configured account lockout policies and alerting mechanisms
+
+---
+
+# Conclusion
+
+This simulation demonstrated how Wazuh can detect and analyze brute-force authentication attacks in a controlled lab environment. By combining endpoint logging, SIEM monitoring, and packet analysis, the lab provided hands-on experience with attack detection and incident investigation techniques used in real-world SOC environments.
+
+
