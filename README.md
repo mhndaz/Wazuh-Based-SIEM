@@ -52,7 +52,7 @@ The lab environment was built in VMware using multiple virtual machines:
 | Windows Server 2016 | Domain Controller & Shared Storage |
 | Kali Linux | Wazuh Manager/Server |
 | OPNsense | Firewall & Network Segmentation |
-
+ 
 The following diagram shows how the systems communicate within the lab environment.
 
 ## Network Diagram
