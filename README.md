@@ -1,6 +1,6 @@
 # Wazuh-Based SIEM Project
 
-## Overview
+## Overview 
 
 Security Information and Event Management (SIEM) platforms help organizations collect, monitor, and analyze logs from multiple systems in one place. They improve visibility across the network and help security teams detect suspicious activity faster.
 
