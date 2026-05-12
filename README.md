@@ -250,8 +250,10 @@ Run a brute-force attempt against the Windows machine.
 
 
 ```bash
-crackmapexec smb 10.0.0.10 -u administrator -p passwords.txt
+crackmapexec smb 10.0.0.10 -u administrator -p /usr/share/wordlist/wifite.txt
 ```
+
+I used the default list under /usr/share/wordlist/wifite.txt, it works for the porpuse of this LAB, i added the correct password to the wifite.txt file thast ahy we are getting the result on the last line of the following picture
 
 <img width="981" height="193" alt="Attack simulation" src="https://github.com/user-attachments/assets/bd16206f-5c25-41c7-80ce-d8bb37449f07" />
 
